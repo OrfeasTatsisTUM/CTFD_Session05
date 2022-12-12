@@ -11,7 +11,8 @@ if s~=0
     plot(n_sorted, RAM_sorted)
     hold on
     plot(n_sorted, sRAM_sorted)
-    xlabel('n'); ylabel('storage [MB]');
+    xlabel('Grid Size'); ylabel('storage [MB]');
+    title("RAM spent (backslash solver)");
     legend('full', 'sparce', 'Location','northwest');
     set(gcf, 'Position',[10,150,620,550]);
 
@@ -19,12 +20,13 @@ if s~=0
     plot(n_sorted, t_sorted)
     hold on
     plot(n_sorted, st_sorted)
-    xlabel('x'); ylabel('time [sec]');
+    xlabel('Grid Size'); ylabel('time [sec]');
+    title("Time spent (backslash solver)");
     legend('full', 'sparce', 'Location','northwest');
     set(gcf, 'Position',[640,150,620,550]);
 else
 
-    if strcmp(solver, 'Test')
+    if strcmp(solution, 'Test')
         if z == 1 
             %% Random Diagonal Dominant matrix
 
@@ -42,6 +44,7 @@ else
                 text(max_iter, min(ylim),["Didn't converge"], ...
                     'VerticalAlignment','bottom', 'HorizontalAlignment','right', 'Color','r')
             end
+            if ro == 1; text(0.5, 0.5, ["Spectral Radius bigger than 1"], 'Color','r','HorizontalAlignment','center'); end
 
             % Plot position
             if strcmp(method, 'Jacobi'); set(gcf, 'Position',[10,350,620,550]);
@@ -66,6 +69,7 @@ else
                 text(max_iter, min(ylim),["Didn't converge"], ...
                     'VerticalAlignment','bottom', 'HorizontalAlignment','right', 'Color','r')
             end
+            if ro == 1; text(0.5, 0.5, ["Spectral Radius bigger than 1"], 'Color','r','HorizontalAlignment','center'); end
 
             % Plot position
             if strcmp(method, 'Jacobi'); set(gcf, 'Position',[640,350,620,550]);
@@ -90,14 +94,37 @@ else
                 text(max_iter, min(ylim),["Didn't converge"], ...
                     'VerticalAlignment','bottom', 'HorizontalAlignment','right', 'Color','r')
             end
+            if ro == 1; text(0.5, 0.5, ["Spectral Radius bigger than 1"], 'Color','r','HorizontalAlignment','center'); end
             
             % Plot position
             if strcmp(method, 'Jacobi'); set(gcf, 'Position',[1270,350,620,550]);
             elseif strcmp(method, 'GaussSeidel'); set(gcf, 'Position',[1270,300,620,550]);
             elseif strcmp(method, 'SOR'); set(gcf, 'Position',[1270,250,620,550]);
             end
-            
 
+
+        end
+    else
+        figure(i)
+        semilogy(itVec,resVec, 'r-');
+        title("Discretization of 2D FVM | " + method + " Method")
+        xlabel('Iteration')
+        ylabel('Residual norm')
+        grid on
+
+        % Inability to converge
+        if size(itVec,2) == max_iter
+            fprintf(2, 'For %s method with discretized matrix (with 2D-FVM) and tolerance: ', method)
+            fprintf(2, "%s the program can't converge\n", tol)
+            text(max_iter, min(ylim),["Didn't converge"], ...
+                'VerticalAlignment','bottom', 'HorizontalAlignment','right', 'Color','r')
+        end
+        if ro == 1; text(0.5, 0.5, ["Spectral Radius bigger than 1"], 'Color','r','HorizontalAlignment','center'); end
+
+        % Plot position
+        if strcmp(method, 'Jacobi'); set(gcf, 'Position',[10,200,620,550]);
+        elseif strcmp(method, 'GaussSeidel'); set(gcf, 'Position',[640,200,620,550]);
+        elseif strcmp(method, 'SOR'); set(gcf, 'Position',[1270,200,620,550]);
         end
     end
 end

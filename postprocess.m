@@ -11,7 +11,7 @@ switch simulationType
     case 'steady'
 
         %% 2D Plot
-        figure(1)
+        figure(7)
         s = pcolor(X,Y,T);        hold on;
         s.FaceColor = 'interp';
         s = pcolor(X,-Y,T);       hold off;
@@ -30,7 +30,7 @@ switch simulationType
         saveas(gcf,'Steady_2D.jpg')
 
         %% Contour Plot
-        figure(2)
+        figure(8)
         contour(X,Y,T);        hold on;
         contour(X,-Y,T);       hold on;
         plot(X(1,:),Y(1,:),'k');    hold on;
@@ -42,7 +42,7 @@ switch simulationType
         saveas(gcf,'Steady_Contour.jpg')
 
         %% 3D Plot
-        figure(3)
+        figure(9)
         s = surf(X,Y,T);  hold on;
         s.FaceColor = 'interp';
         s = surf(X,-Y,T); hold off;
