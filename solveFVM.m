@@ -1,5 +1,5 @@
-function [T, t, st, RAM, sRAM, n, A] = solveFVM(dimY, dimX, X, Y, boundary, TD, lamda, alpha, Tinf, dt, tend, TimeIntegrType, theta, simulationType, s)
-
+function [T, t, st, RAM, sRAM, n, A] = solveFVM(dimY, dimX, X, Y, boundary, TD, lamda, alpha, Tinf, dt, tend, TimeIntegrType, theta, simulationType, s, tol, max_iter, relax, solver)
+% function T = solveFVM(dimY, dimX, X, Y, boundary, TD, lamda, alpha, Tinf, dt, tend, TimeIntegrType, theta, simulationType, s, tol, max_iter, relax, solver)
 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % File solveFVM.m
@@ -153,13 +153,14 @@ function [T, t, st, RAM, sRAM, n, A] = solveFVM(dimY, dimX, X, Y, boundary, TD, 
             T1(:) = SA \ B';
             st = toc;
             sRAM = whos("SA");
-
+            
         else
             %% Use iterative solvers
             A = sparse(A);
+            t = 0;  st = 0; RAM = 0; sRAM = 0;
 
             % Solve iteratively the linear system
-
+            T = iterativeSolver(solver, s, A, B, tol, relax, max_iter);
         end
 
         n = (dimX*dimY);

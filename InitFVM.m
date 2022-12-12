@@ -229,3 +229,11 @@ end
                 clear x_cur y_cur h_cur h_avg AR dn_min n
             end
         end
+
+        %% Solver (Session 05)
+        % 1) 'Test', 2) 'Jacobi', 3) 'GaussSeidel', 4) 'SOR'
+        solver = 'Test';
+
+        tol = 1.0e-20;  % Tolerance for solver = 'Test' 
+        relax = 1.9;    % Relaxation for SOR
+        max_iter = 2000; % maximum number of iterations

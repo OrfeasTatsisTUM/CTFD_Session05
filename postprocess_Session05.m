@@ -1,23 +1,103 @@
-%% Sort Data from less to more nodes
-[n_sorted, I] = sort(n);
-RAM_sorted = vertcat(RAM(I).bytes);
-sRAM_sorted = vertcat(sRAM(I).bytes);
-t_sorted = t(I);
-st_sorted = st(I);
+if s~=0
+    %% Sort Data from less to more nodes
+    [n_sorted, I] = sort(n);
+    RAM_sorted = vertcat(RAM(I).bytes);
+    sRAM_sorted = vertcat(sRAM(I).bytes);
+    t_sorted = t(I);
+    st_sorted = st(I);
 
-%% Plots
-figure (2)
-plot(n_sorted, RAM_sorted)
-hold on
-plot(n_sorted, sRAM_sorted)
-xlabel('n'); ylabel('storage [MB]');
-legend('full', 'sparce', 'Location','northwest');
-set(gcf, 'Position',[10,150,620,550]);
+    %% Plots
+    figure (2)
+    plot(n_sorted, RAM_sorted)
+    hold on
+    plot(n_sorted, sRAM_sorted)
+    xlabel('n'); ylabel('storage [MB]');
+    legend('full', 'sparce', 'Location','northwest');
+    set(gcf, 'Position',[10,150,620,550]);
 
-figure (3)
-plot(n_sorted, t_sorted)
-hold on
-plot(n_sorted, st_sorted)
-xlabel('x'); ylabel('time [sec]');
-legend('full', 'sparce', 'Location','northwest');
-set(gcf, 'Position',[640,150,620,550]);
+    figure (3)
+    plot(n_sorted, t_sorted)
+    hold on
+    plot(n_sorted, st_sorted)
+    xlabel('x'); ylabel('time [sec]');
+    legend('full', 'sparce', 'Location','northwest');
+    set(gcf, 'Position',[640,150,620,550]);
+else
+
+    if strcmp(solver, 'Test')
+        if z == 1 
+            %% Random Diagonal Dominant matrix
+
+            figure(i)
+            semilogy(itVec,resVec, 'r-');
+            title("Random Diagonal Dominant matrix | " + method + " Method")
+            xlabel('Iteration')
+            ylabel('Residual norm')
+            grid on
+
+            % Inability to converge
+            if size(itVec,2) == max_iter
+                fprintf(2, 'For %s method with Random Diagonal Dominant matrix and tolerance: ', method)
+                fprintf(2, "%s the program can't converge\n", tol)
+                text(max_iter, min(ylim),["Didn't converge"], ...
+                    'VerticalAlignment','bottom', 'HorizontalAlignment','right', 'Color','r')
+            end
+
+            % Plot position
+            if strcmp(method, 'Jacobi'); set(gcf, 'Position',[10,350,620,550]);
+            elseif strcmp(method, 'GaussSeidel'); set(gcf, 'Position',[10,300,620,550]);
+            elseif strcmp(method, 'SOR'); set(gcf, 'Position',[10,250,620,550]);
+            end
+        
+        elseif z == 2
+            %% Random Three Diagonal Dominant matrix
+
+            figure(i)
+            semilogy(itVec,resVec, 'r-');
+            title("Random Three Diagonal Dominant matrix | " + method + " Method")
+            xlabel('Iteration')
+            ylabel('Residual norm')
+            grid on
+
+            % Inability to converge
+            if size(itVec,2) == max_iter
+                fprintf(2, 'For %s method Random Three Diagonal Dominant matrix and tolerance: ', method)
+                fprintf(2, "%s the program can't converge\n", tol)
+                text(max_iter, min(ylim),["Didn't converge"], ...
+                    'VerticalAlignment','bottom', 'HorizontalAlignment','right', 'Color','r')
+            end
+
+            % Plot position
+            if strcmp(method, 'Jacobi'); set(gcf, 'Position',[640,350,620,550]);
+            elseif strcmp(method, 'GaussSeidel'); set(gcf, 'Position',[640,300,620,550]);
+            elseif strcmp(method, 'SOR'); set(gcf, 'Position',[640,250,620,550]);
+            end
+
+        else
+            %% Fully Random matrix
+
+            figure(i)
+            semilogy(itVec,resVec, 'r-');
+            title("Fully Random matrix | " + method + " Method")
+            xlabel('Iteration')
+            ylabel('Residual norm')
+            grid on
+
+            % Inability to converge
+            if size(itVec,2) == max_iter
+                fprintf(2, 'For %s method with Fully Random matrix and tolerance: ', method)
+                fprintf(2, "%s the program can't converge\n", tol)
+                text(max_iter, min(ylim),["Didn't converge"], ...
+                    'VerticalAlignment','bottom', 'HorizontalAlignment','right', 'Color','r')
+            end
+            
+            % Plot position
+            if strcmp(method, 'Jacobi'); set(gcf, 'Position',[1270,350,620,550]);
+            elseif strcmp(method, 'GaussSeidel'); set(gcf, 'Position',[1270,300,620,550]);
+            elseif strcmp(method, 'SOR'); set(gcf, 'Position',[1270,250,620,550]);
+            end
+            
+
+        end
+    end
+end

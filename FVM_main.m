@@ -13,7 +13,7 @@ clear; close all; clc;
 % non-Cartesian Grid by the Finite Volumes Method.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-%% Check RAM & solution time (Session 05)
+%% Check RAM & solution time  with backslash solver for various grid sizes (Session 05)
 s = 1;
 for dimX = 5:11:38
     for dimY = 5:10:35
@@ -25,7 +25,7 @@ for dimX = 5:11:38
         [X, Y] = setUpMesh(dimY, dimX, l, formfunction);
 
 % Fill matrix A and vector B. Solve the linear system.
-        [T, t(s), st(s), RAM(s), sRAM(s), n(s), A]   = solveFVM(dimY, dimX, X, Y, boundary, TD, lamda, alpha, Tinf, dt, tend, TimeIntegrType, theta, simulationType, s);
+        [T, t(s), st(s), RAM(s), sRAM(s), n(s), A]   = solveFVM(dimY, dimX, X, Y, boundary, TD, lamda, alpha, Tinf, dt, tend, TimeIntegrType, theta, simulationType, s, tol, max_iter, relax, solver);
         if s == 1
             figure(1)
             spy(A,'ro',2)
@@ -35,8 +35,10 @@ for dimX = 5:11:38
         s = s + 1;
     end
 end
+%% Make some plots
+postprocess_Session05;
 
-%% Use iterative solvers
+%% Use iterative solvers (Session 05)
 s = 0;
 
 % Initialize variables
@@ -46,8 +48,5 @@ InitFVM
 [X, Y] = setUpMesh(dimY, dimX, l, formfunction);
 
 % Fill matrix A and vector B. Solve the linear system.
-[T, t(s), st(s), RAM(s), sRAM(s), n(s), A]   = solveFVM(dimY, dimX, X, Y, boundary, TD, lamda, alpha, Tinf, dt, tend, TimeIntegrType, theta, simulationType, s);
-
-%% Make some plots
-% postprocess;
-postprocess_Session05;
+% [T, t(s), st(s), RAM(s), sRAM(s), n(s), A]   = solveFVM(dimY, dimX, X, Y, boundary, TD, lamda, alpha, Tinf, dt, tend, TimeIntegrType, theta, simulationType, s, tol, max_iter, relax, solver);
+T   = solveFVM(dimY, dimX, X, Y, boundary, TD, lamda, alpha, Tinf, dt, tend, TimeIntegrType, theta, simulationType, s, tol, max_iter, relax, solver);
