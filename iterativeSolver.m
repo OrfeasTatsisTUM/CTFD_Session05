@@ -1,7 +1,7 @@
 function T = iterativeSolver(solution, s, A, B, tol, relax, max_iter)
 
 i=4; % count of figures
-ro = 0;  % ro=0 -> specral radius > 1,  ro=1 -> specral radius <= 1
+ro = 0;  % ro=0 -> specral radius <= 1,  ro=1 -> specral radius > 1
 
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Test (Stage 3) ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 if strcmp(solution, 'Test')

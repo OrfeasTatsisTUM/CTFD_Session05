@@ -235,8 +235,10 @@ end
         % 1) 'Test'   (Stage 3)
         % 2) '2D_FVM' (Stage 4 & 5)
         solution = 'Test';
-        if s==0; fprintf('Solution type:\t\t\t\t %s\n', solution); end
+
 
         tol = 4.0e-16;  % Tolerance for solver = 'Test' 
         relax = 1.9;    % Relaxation for SOR
         max_iter = 2000; % Maximum number of iterations
+
+        if s==0; fprintf('Solution type:\t\t\t\t %s\n', solution); end

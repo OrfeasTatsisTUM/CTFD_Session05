@@ -9,8 +9,8 @@ clear; close all; clc;
 %  WS022-023
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Program to solve the 2D steady and unsteady heat equation in a 
-% non-Cartesian Grid by the Finite Volumes Method.
+% Program to solve the 2D steady heat equation in a non-Cartesian Grid 
+% by the Finite Volumes Method using self made solvers.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 %% Check RAM & solution time  with backslash solver for various grid sizes (Session 05 - Stage 2)
