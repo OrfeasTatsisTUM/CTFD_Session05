@@ -1,5 +1,6 @@
-% clc; close all;
+%% Code written by: Orfeas-Emmanouil Tatsis
 
+% clc; close all;
 fprintf('Shape of Fin:\t\t\t\t %s\n', shape)
 fprintf('Lamda Distribution:\t\t\t %s\n', heat_conduc)
 fprintf('Simulation Type:\t\t\t %s\n', simulationType)
@@ -27,7 +28,7 @@ switch simulationType
         hcb=colorbar;
         set(get(hcb,'Title'),'String','T');     % insert label above colorbar
         set(gcf, 'Position',[10,150,620,550]);
-        saveas(gcf,'Steady_2D.jpg')
+%         saveas(gcf,'Steady_2D.jpg')
 
         %% Contour Plot
         figure(8)
@@ -39,7 +40,7 @@ switch simulationType
         hcb=colorbar;
         set(get(hcb,'Title'),'String','T');
         set(gcf, 'Position',[640,150,620,550]);
-        saveas(gcf,'Steady_Contour.jpg')
+%         saveas(gcf,'Steady_Contour.jpg')
 
         %% 3D Plot
         figure(9)
@@ -50,7 +51,7 @@ switch simulationType
         xlabel('x'); ylabel('y'); zlabel('T');
         set(gcf, 'Position',[1270,150,550,550]);
         view(45,24);            %view angle
-        saveas(gcf,'Steady_3D.jpg')
+%         saveas(gcf,'Steady_3D.jpg')
         
 
 %% UNSTEADY

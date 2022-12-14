@@ -1,4 +1,6 @@
-function [T, t, st, RAM, sRAM, n, A] = solveFVM(dimY, dimX, X, Y, boundary, TD, lamda, alpha, Tinf, dt, tend, TimeIntegrType, theta, simulationType, s, tol, max_iter, relax, solution)
+%% Script written by: Orfeas-Emmanouil Tatsis
+
+function [T, t, st, RAM, sRAM, n, A] = solveFVM(dimY, dimX, X, Y, boundary, TD, lamda, alpha, Tinf, dt, tend, TimeIntegrType, theta, simulationType, Stg2, tol, max_iter, relax, solution, Stg6)
 
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         % File solveFVM.m
@@ -95,7 +97,7 @@ function [T, t, st, RAM, sRAM, n, A] = solveFVM(dimY, dimX, X, Y, boundary, TD, 
             end
         end
         
-        if s ~= 0
+        if Stg2 ~= 0 && Stg6 == 0  % Stage 2
             tic
             % Solve the linear system
             T1(:) = A \ B';
@@ -105,7 +107,7 @@ function [T, t, st, RAM, sRAM, n, A] = solveFVM(dimY, dimX, X, Y, boundary, TD, 
             % Convert solution vector into matrix
             T(:,:,1) = reshape(T1, [dimY,dimX]);
 
-            %% Unsteady case (Session 04)
+            % Unsteady case (Session 04)
             % if strcmp(simulationType, 'unsteady')
             %
             %     T(:,:,1) = reshape(B, [dimY,dimX]); %initial value
@@ -154,12 +156,31 @@ function [T, t, st, RAM, sRAM, n, A] = solveFVM(dimY, dimX, X, Y, boundary, TD, 
             sRAM = whos("SA");
             
             n = (dimX*dimY);
-        else
+
+        elseif Stg2 == 0 && Stg6 == 0  % Stage 3, 4, 5
             %% Use iterative solvers
 
             % Solve iteratively the linear system
-            T(:) = iterativeSolver(solution, s, A, B, tol, relax, max_iter);
+            T(:) = iterativeSolver(solution, Stg2, A, B, tol, relax, max_iter, Stg6);
 
             % Convert solution vector into matrix
             if strcmp(solution, '2D_FVM');  T = reshape(T, [dimY,dimX]);  end
+
+        elseif Stg6 ~= 0  % Stage 6
+            tol = 1.0e-2;
+
+            fprintf("  Best self made iterative solver:\n")
+            % Measure time of best iterative solver
+            T(:) = iterativeSolver(solution, Stg2, A, B, tol, relax, max_iter, Stg6);
+
+            % Measure time of gmres
+            fprintf("    gmres:\t\t\t\t\t\t")
+            method = "gmres";
+
+            inn_maxit = 10;
+            tic
+            [T(:),conv,relres,itVec, resVec] = gmres(A, B', round(max_iter/inn_maxit), tol, inn_maxit);
+            t=toc;
+            postprocess_Session05
+            
         end

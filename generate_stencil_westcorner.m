@@ -1,3 +1,5 @@
+%% Script written by: Orfeas-Emmanouil Tatsis
+
 % This code generates a 2-D FVM stencil for the two west corner nodes.
 % The faces of the cells do not have to be aligned to a 
 % cartesian grid on any side, i.e. a cell can be any convex quadrilateral

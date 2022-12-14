@@ -1,3 +1,5 @@
+%% Script written by: Orfeas-Emmanouil Tatsis
+
 % Nomenclature:
         %
         %   W(i, j-1) - - w - - P (i,j) - - e  - - - E (i,j+1)

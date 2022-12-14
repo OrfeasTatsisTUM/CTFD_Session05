@@ -1,3 +1,5 @@
+%% Script written by: Orfeas-Emmanouil Tatsis
+
 function [stencil] = stamp(i, j, X, Y, lamda, alpha, Tinf, boundary,TD)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

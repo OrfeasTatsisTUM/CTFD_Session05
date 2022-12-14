@@ -1,3 +1,5 @@
+%% Script written by: Orfeas-Emmanouil Tatsis
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Define the parameters of the simulation
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -30,7 +32,7 @@ h2 = 3;
 l  = 10;
 
 % Number of degrees of freedom (number of nodes per length)
-if s == 0
+if Stg2 == 0 && Stg6 == 0
     dimX = 35;
     dimY = 30;
 end
@@ -237,8 +239,8 @@ end
         solution = 'Test';
 
 
-        tol = 4.0e-16;  % Tolerance for solver = 'Test' 
+        tol = 1.0e-14;  % Tolerance for solver = 'Test' 
         relax = 1.9;    % Relaxation for SOR
         max_iter = 2000; % Maximum number of iterations
 
-        if s==0; fprintf('Solution type:\t\t\t\t %s\n', solution); end
+        if Stg2==0 && Stg6 == 0; fprintf('Solution type:\t\t\t\t %s\n', solution); end

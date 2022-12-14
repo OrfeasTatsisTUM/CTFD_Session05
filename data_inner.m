@@ -1,4 +1,5 @@
-            
+%% Script written by: Orfeas-Emmanouil Tatsis
+
 % Nomenclature:
 %
 %   NW(i-1,j-1) - Nw -  N(i-1,j) -  Ne  - NE(i-1,j+1)

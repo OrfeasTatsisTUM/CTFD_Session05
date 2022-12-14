@@ -1,3 +1,4 @@
+%% Script written by: Orfeas-Emmanouil Tatsis
 
 % This code generates a 2-D FVM stencil for inner nodes.
 % The faces of the cells do not have to be aligned to a 

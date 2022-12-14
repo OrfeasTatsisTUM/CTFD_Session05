@@ -1,3 +1,5 @@
+%% Script written by: Orfeas-Emmanouil Tatsis
+
 function [X,Y] = setUpMesh(dimY, dimX, l, formfunction)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
