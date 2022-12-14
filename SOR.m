@@ -9,8 +9,11 @@ s=size(A,1);
 
 x0=zeros(size(B'));
 x1=x0;
+D = diag(diag(A));
+T = (D + relax*tril(A, -1)) \ ((1 - relax)*D - relax*triu(A, 1));
 
-if max(eig(diag(A) + tril(A, -1))) < 1  % Spectral Radius
+if max(abs(eig(T))) < 1  % Spectral Radius
+% if max(eig(diag(A) + tril(A, -1))) < 1  % Spectral Radius
     ro = 0;
     for i=1:n
         x1(i,:)=(B(i)'-A(i,1:i-1)*x1(1:i-1,:)-A(i,i+1:n)*x0(i+1:n,:))*relax/A(i,i);

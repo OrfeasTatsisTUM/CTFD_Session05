@@ -6,16 +6,28 @@ ro = 0;  % ro=0 -> specral radius <= 1,  ro=1 -> specral radius > 1
 % ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ Test (Stage 3) ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 if strcmp(solution, 'Test')
     %% Random A matrix generation
+    
     n = 100; % dimension of Atest
 
     % Random diagonal dominant matrix
-    Atest = rand(n);
-    Atest(logical(eye(size(Atest)))) = n*n;
-    Atest(:,:,1) = Atest;      % A should be diagonal dominant GS and J converge, SOR convergence not guaranteed
+    x = 0.3;                                     % fraction of zeros in off-diagonal
+    k = round(n*(n-1)*x);                        % number of zeros in off-diagonal
+
+    data = rand(n*(n-1)-k,1);                    % random numbers
+    data = [data;zeros(k,1)];                    % the k zeros
+    data = data(randperm(length(data)));         % shuffle
+
+    diag_index = 1:n+1:n*n;                      % linear index to all diagonal elements
+    offd_index = setdiff(1:n*n,diag_index);      % linear index to all other elements
+    Atest1 = zeros(n,n);
+    Atest1(offd_index) = data;                   % set off-diagonal elements to data
+    Atest1(diag_index) = abs(sum(Atest1,1))+0.1; % set diagonal elements to sum of columns + 0.1
+    Atest(:,:,1) = Atest1';                      % columns->rows
 
     % Random three-diagonal dominant matrix
-    A1 = diag(rand(1,n-1),1) + diag(rand(1,n-1),-1) + diag(n*n*ones(1,n));
-    Atest(:,:,2) = A1;         % A diagonal dominant => GS and J converge, SOR convergence not guaranteed
+    Atest2 = diag(rand(1,n-1),1) + diag(rand(1,n-1),-1);  % one diagonal above & one below -> random 
+    Atest2(diag_index) = abs(sum(Atest2,1))+0.1;          % set diagonal elements to sum of columns + 0.1
+    Atest(:,:,2) = Atest2';                               % columns->rows
 
     % Fully random matrix
     Atest(:,:,3) = rand(n);

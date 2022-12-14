@@ -41,7 +41,7 @@ else
             if size(itVec,2) == max_iter
                 fprintf(2, 'For %s method with Random Diagonal Dominant matrix and tolerance: ', method)
                 fprintf(2, "%s the program can't converge\n", tol)
-                text(max_iter, min(ylim),["Didn't converge"], ...
+                text(max(xlim), min(ylim),["Didn't converge"], ...
                     'VerticalAlignment','bottom', 'HorizontalAlignment','right', 'Color','r')
             end
             if ro == 1; text(0.5, 0.5, ["Spectral Radius bigger than 1"], 'Color','r','HorizontalAlignment','center'); end
@@ -50,6 +50,7 @@ else
             if strcmp(method, 'Jacobi'); set(gcf, 'Position',[10,350,620,550]);
             elseif strcmp(method, 'GaussSeidel'); set(gcf, 'Position',[10,300,620,550]);
             elseif strcmp(method, 'SOR'); set(gcf, 'Position',[10,250,620,550]);
+                text(max(xlim), max(ylim),["Relaxation: " + num2str(relax)], 'VerticalAlignment','top', 'HorizontalAlignment','right')
             end
         
         elseif z == 2
@@ -66,7 +67,7 @@ else
             if size(itVec,2) == max_iter
                 fprintf(2, 'For %s method Random Three Diagonal Dominant matrix and tolerance: ', method)
                 fprintf(2, "%s the program can't converge\n", tol)
-                text(max_iter, min(ylim),["Didn't converge"], ...
+                text(max(xlim), min(ylim),["Didn't converge"], ...
                     'VerticalAlignment','bottom', 'HorizontalAlignment','right', 'Color','r')
             end
             if ro == 1; text(0.5, 0.5, ["Spectral Radius bigger than 1"], 'Color','r','HorizontalAlignment','center'); end
@@ -75,6 +76,7 @@ else
             if strcmp(method, 'Jacobi'); set(gcf, 'Position',[640,350,620,550]);
             elseif strcmp(method, 'GaussSeidel'); set(gcf, 'Position',[640,300,620,550]);
             elseif strcmp(method, 'SOR'); set(gcf, 'Position',[640,250,620,550]);
+                text(max(xlim), max(ylim),["Relaxation: " + num2str(relax)], 'VerticalAlignment','top', 'HorizontalAlignment','right')
             end
 
         else
@@ -91,7 +93,7 @@ else
             if size(itVec,2) == max_iter
                 fprintf(2, 'For %s method with Fully Random matrix and tolerance: ', method)
                 fprintf(2, "%s the program can't converge\n", tol)
-                text(max_iter, min(ylim),["Didn't converge"], ...
+                text(max(xlim), min(ylim),["Didn't converge"], ...
                     'VerticalAlignment','bottom', 'HorizontalAlignment','right', 'Color','r')
             end
             if ro == 1; text(0.5, 0.5, ["Spectral Radius bigger than 1"], 'Color','r','HorizontalAlignment','center'); end
@@ -100,6 +102,7 @@ else
             if strcmp(method, 'Jacobi'); set(gcf, 'Position',[1270,350,620,550]);
             elseif strcmp(method, 'GaussSeidel'); set(gcf, 'Position',[1270,300,620,550]);
             elseif strcmp(method, 'SOR'); set(gcf, 'Position',[1270,250,620,550]);
+                text(max(xlim), max(ylim),["Relaxation: " + num2str(relax)], 'VerticalAlignment','top', 'HorizontalAlignment','right')
             end
 
 
@@ -116,7 +119,7 @@ else
         if size(itVec,2) == max_iter
             fprintf(2, 'For %s method with discretized matrix (with 2D-FVM) and tolerance: ', method)
             fprintf(2, "%s the program can't converge\n", tol)
-            text(max_iter, min(ylim),["Didn't converge"], ...
+            text(max(xlim), min(ylim),["Didn't converge"], ...
                 'VerticalAlignment','bottom', 'HorizontalAlignment','right', 'Color','r')
         end
         if ro == 1; text(0.5, 0.5, ["Spectral Radius bigger than 1"], 'Color','r','HorizontalAlignment','center'); end
@@ -125,6 +128,7 @@ else
         if strcmp(method, 'Jacobi'); set(gcf, 'Position',[10,200,620,550]);
         elseif strcmp(method, 'GaussSeidel'); set(gcf, 'Position',[640,200,620,550]);
         elseif strcmp(method, 'SOR'); set(gcf, 'Position',[1270,200,620,550]);
+            text(max(xlim), max(ylim),["Relaxation: " + num2str(relax)], 'VerticalAlignment','top', 'HorizontalAlignment','right')
         end
     end
 end

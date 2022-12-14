@@ -12,7 +12,8 @@ x1=x0;
 M=diag(A);
 N=A-diag(M);
 
-if max(eig(eye(size(A)) - 1./diag(M)*A)) < 1  % Spectral Radius
+T = -diag(1./M) * N;
+if max(abs(eig(T))) < 1  % Spectral Radius
     ro = 0;
     while norm(B' - A*x1)/norm(B') > tol   &&  step < max_iter
         x1=(B'-N*x0)./M;
